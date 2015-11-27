@@ -18,7 +18,6 @@ const (
 // Specification is the runtime specifiation for doit-server. Pertinent environment
 // variables will be captured here.
 type Specification struct {
-	Addr               string `default:":8935"`
 	Callback           string
 	DigitalOceanKey    string `envconfig:"digitalocean_key"`
 	DigitalOceanSecret string `envconfig:"digitalocean_secret"`
@@ -31,6 +30,11 @@ func main() {
 	err := envconfig.Process("doit", &s)
 	if err != nil {
 		log.Fatal(err.Error())
+	}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		log.Fatal("environment variable PORT required")
 	}
 
 	if os.Getenv("SESSION_SECRET") == "" {
@@ -55,6 +59,7 @@ func main() {
 
 	serv := doitserver.NewServer(s.EncodingKey)
 
-	log.Printf("server listening at %s", s.Addr)
-	log.Fatal(http.ListenAndServe(s.Addr, serv.Mux))
+	addr := ":" + port
+	log.Printf("server listening at %s", addr)
+	log.Fatal(http.ListenAndServe(addr, serv.Mux))
 }
