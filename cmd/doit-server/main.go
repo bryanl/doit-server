@@ -56,5 +56,5 @@ func main() {
 	serv := doitserver.NewServer(s.EncodingKey)
 
 	log.Printf("server listening at %s", s.Addr)
-	http.ListenAndServe(s.Addr, serv.Mux)
+	log.Fatal(http.ListenAndServe(s.Addr, serv.Mux))
 }
