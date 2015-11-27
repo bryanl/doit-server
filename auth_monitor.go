@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/bryanl/doit"
 	"github.com/gorilla/websocket"
 )
 
@@ -56,7 +55,7 @@ func (am *AuthMonitor) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		msg := doit.TokenResponse{
+		msg := TokenResponse{
 			ID: ar.ID,
 		}
 		if ar.Err == "" {

@@ -6,6 +6,18 @@ import (
 	"github.com/gorilla/pat"
 )
 
+type AuthCredentials struct {
+	ID string `json:"id"`
+	CS string `json:"cs"`
+}
+
+type TokenResponse struct {
+	AccessToken string `json:"access_token"`
+	ID          string `json:"id"`
+	Err         string `json:"err"`
+	Message     string `json:"msg"`
+}
+
 type Server struct {
 	Consumers *Consumers
 	Mux       http.Handler

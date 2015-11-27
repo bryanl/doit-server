@@ -7,7 +7,6 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/bryanl/doit"
 	"github.com/bryanl/doit-server"
 )
 
@@ -35,7 +34,7 @@ func TestTokenGenerator(t *testing.T) {
 	}
 	defer res.Body.Close()
 
-	var ac doit.AuthCredentials
+	var ac doitserver.AuthCredentials
 	err = json.NewDecoder(res.Body).Decode(&ac)
 	if err != nil {
 		t.Fatal(err)

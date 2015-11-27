@@ -3,8 +3,6 @@ package doitserver
 import (
 	"encoding/json"
 	"net/http"
-
-	"github.com/bryanl/doit"
 )
 
 type TokenGenerator struct {
@@ -19,7 +17,7 @@ func NewTokenGenerator(key string) *TokenGenerator {
 
 func (tg *TokenGenerator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
-	ac := doit.AuthCredentials{
+	ac := AuthCredentials{
 		ID: id,
 		CS: encodeID(id, tg.key),
 	}
