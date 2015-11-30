@@ -2,6 +2,7 @@ package doitserver
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 
 	"github.com/markbates/goth/gothic"
@@ -68,7 +69,8 @@ func (ac *AuthCallback) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	delete(session.Values, "cli-auth")
 	_ = session.Save(r, w)
 
-	fmt.Fprintf(w, "Please copy the access token, switch to your auth login and paste it there: <br><strong>%s</strong></br>", user.AccessToken)
+	t, _ := template.New("cliTemplate").Parse(cliTemplate)
+	t.Execute(w, user)
 }
 
 var updateTemplate = `
@@ -78,5 +80,19 @@ var updateTemplate = `
 <script>
 window.location = "https://github.com/bryanl/doit/blob/master/README.md";
 </script>
+</body>
+</html>`
+
+var cliTemplate = `
+<!doctype html>
+<html lang="en">
+<body>
+<p>
+Please copy the access token, switch back to doit cli and it paste the following token:
+</p>
+
+<p>
+<strong>{{ .AccessToken }}</strong>
+</p>
 </body>
 </html>`
