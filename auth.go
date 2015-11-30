@@ -28,6 +28,7 @@ func NewAuth(key string) *Auth {
 func (a *Auth) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	cs := r.URL.Query().Get("cs")
+	cliAuth := r.URL.Query().Get("cliauth")
 
 	if encodeID(id, a.key) != cs {
 		err := &UnknownClientError{}
@@ -39,6 +40,10 @@ func (a *Auth) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
+	}
+
+	if cliAuth != "" {
+		session.Values["cli-auth"] = "yes"
 	}
 
 	session.Values["current-auth"] = id
