@@ -13,7 +13,6 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
-	"strings"
 )
 
 const (
@@ -91,19 +90,13 @@ func (p *Provider) FetchUser(session goth.Session) (goth.User, error) {
 	return user, err
 }
 
-// UnmarshalSession will unmarshal a JSON string into a session.
-func (p *Provider) UnmarshalSession(data string) (goth.Session, error) {
-	sess := &Session{}
-	err := json.NewDecoder(strings.NewReader(data)).Decode(sess)
-	return sess, err
-}
-
 func userFromReader(reader io.Reader, user *goth.User) error {
 	u := struct {
 		ID       int    `json:"id"`
 		Email    string `json:"email"`
 		Bio      string `json:"bio"`
 		Name     string `json:"name"`
+		Login    string `json:"login"`
 		Picture  string `json:"avatar_url"`
 		Location string `json:"location"`
 	}{}
@@ -114,7 +107,7 @@ func userFromReader(reader io.Reader, user *goth.User) error {
 	}
 
 	user.Name = u.Name
-	user.NickName = u.Name
+	user.NickName = u.Login
 	user.Email = u.Email
 	user.Description = u.Bio
 	user.AvatarURL = u.Picture

@@ -46,7 +46,7 @@
 		{
 			"importpath": "github.com/markbates/goth",
 			"repository": "https://github.com/markbates/goth",
-			"revision": "6b8ddfac48fba231af62775ecd6ca058aa45b84b",
+			"revision": "b2b8e0c19272287ed0ed1530d53b911ff3f41960",
 			"branch": "master"
 		},
 		{
