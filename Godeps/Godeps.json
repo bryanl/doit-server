@@ -1,4 +1,8 @@
 {
   "ImportPath": "github.com/bryanl/doit-server",
-  "GoVersion": "go1.6"
+  "GoVersion": "go1.6",
+  "Packages": [
+    "github.com/bryanl/doit-server",
+    "github.com/bryanl/doit-server/cmd/doit-server"
+  ]
 }
