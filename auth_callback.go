@@ -78,7 +78,7 @@ var updateTemplate = `
 <html lang="en">
 <body>
 <script>
-window.location = "https://github.com/bryanl/doit/blob/master/README.md";
+window.location = "https://github.com/digitalocean/doctl/blob/master/README.md";
 </script>
 </body>
 </html>`
